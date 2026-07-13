@@ -5,105 +5,120 @@ import '../core/responsive.dart';
 import '../data/site_content.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
-import '../widgets/common.dart';
-import '../widgets/wlthy_button.dart';
 import '../widgets/wlthy_text.dart';
 
-/// Full-bleed brand banner built around [AppImages.phoneBanner] — the wide
-/// "hands holding a phone" shot with open space on the left, where the copy and
-/// CTA are overlaid. A left-side scrim keeps text legible when the image is
-/// cropped on narrow screens.
+/// "Coming soon on iOS & Android" (Figma 213:490, 1510×345): copy + black CTA
+/// on the left, the two status pills stacked in the upper-middle-right
+/// (x≈903), and the Freedom-Plan phone anchored top-right, cropped by the
+/// band's bottom edge.
 class PhoneBannerSection extends StatelessWidget {
   const PhoneBannerSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final height = context.responsive<double>(
-      mobile: 360,
-      tablet: 420,
-      desktop: 480,
-    );
+    if (context.isMobile) return _mobile(context);
+    return _desktop(context);
+  }
 
-    return SizedBox(
-      width: double.infinity,
-      height: height,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset(
-            AppImages.phoneBanner,
-            fit: BoxFit.cover,
-            alignment: Alignment.centerRight,
-            filterQuality: FilterQuality.high,
-          ),
-          // Left scrim matched to the image's own grey (#D7D7D7) so it blends
-          // with the boundaries band above instead of lightening the left.
-          const DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                stops: [0.0, 0.5, 0.75],
-                colors: [
-                  Color(0xFFD7D7D7),
-                  Color(0xCCD7D7D7),
-                  Color(0x00D7D7D7),
-                ],
-              ),
-            ),
-          ),
-          Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: context.gutter),
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxWidth: Breakpoints.maxContentWidth),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _desktop(BuildContext context) {
+    return ClipRect(
+      child: Container(
+        color: AppColors.white,
+        height: 345,
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: context.gutter),
+            child: ConstrainedBox(
+              constraints:
+                  const BoxConstraints(maxWidth: Breakpoints.maxContentWidth),
+              child: SizedBox(
+                width: double.infinity,
+                child: Stack(
+                  clipBehavior: Clip.none,
                   children: [
-                    // Copy + CTA on the left.
-                    Expanded(
-                      flex: 6,
+                    // Copy + CTA (Figma column x=255..856).
+                    Positioned(
+                      left: 0,
+                      top: 40,
                       child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 460),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Eyebrow(ComingSoon.eyebrow),
-                            const SizedBox(height: 14),
-                            WlthyText(
-                              ComingSoon.title,
-                              style: FigmaText.h2(AppColors.ink),
-                            ),
-                            const SizedBox(height: 14),
-                            WlthyText(
-                              ComingSoon.body,
-                              style: FigmaText.comingSoonBody(const Color(0xFF5C5C58)),
-                            ),
-                            const SizedBox(height: 22),
-                            WlthyButton(ComingSoon.cta),
-                          ],
-                        ),
+                        constraints: const BoxConstraints(maxWidth: 601),
+                        child: _copy(context),
                       ),
                     ),
-                    const SizedBox(width: 24),
-                    // "in development" status pills stacked on the right.
-                    Expanded(
-                      flex: 4,
+                    // Status pills at x≈648 within the column, y≈91.
+                    Positioned(
+                      left: 648,
+                      top: 91,
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          for (final s in ComingSoon.statuses)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: _StatusPill(s),
-                            ),
+                          _StatusPill('iOS — in development', Icons.apple),
+                          const SizedBox(height: 9),
+                          _StatusPill(
+                              'Android — in development', Icons.android),
                         ],
                       ),
                     ),
+                    // Phone: top-anchored right, taller than the band — its
+                    // bottom is cropped by the band edge (ClipRect above).
+                    Positioned(
+                      right: -150,
+                      top: 40,
+                      child: Image.asset(
+                        AppImages.screen3,
+                        width: 280,
+                        fit: BoxFit.fitWidth,
+                        alignment: Alignment.topCenter,
+                        filterQuality: FilterQuality.high,
+                      ),
+                    ),
                   ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _mobile(BuildContext context) {
+    return Container(
+      color: AppColors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(context.gutter, 40, context.gutter, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _copy(context),
+                const SizedBox(height: 20),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: const [
+                    _StatusPill('iOS — in development', Icons.apple),
+                    _StatusPill('Android — in development', Icons.android),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+          // Phone cropped at the band bottom, right-aligned.
+          ClipRect(
+            child: Align(
+              alignment: Alignment.topRight,
+              heightFactor: 0.75,
+              child: Padding(
+                padding: EdgeInsets.only(right: context.gutter),
+                child: Image.asset(
+                  AppImages.screen3,
+                  width: 300,
+                  fit: BoxFit.fitWidth,
+                  filterQuality: FilterQuality.high,
                 ),
               ),
             ),
@@ -112,33 +127,62 @@ class PhoneBannerSection extends StatelessWidget {
       ),
     );
   }
+
+  Widget _copy(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          WlthyText(ComingSoon.eyebrow.toUpperCase(),
+              style: FigmaText.eyebrow(AppColors.ink)),
+          const SizedBox(height: 5),
+          WlthyText(ComingSoon.title, style: FigmaText.h2(AppColors.ink)),
+          const SizedBox(height: 10),
+          WlthyText(ComingSoon.body,
+              style: FigmaText.comingSoonBody(const Color(0xFF5C5C58))),
+          const SizedBox(height: 16),
+          _blackButton(ComingSoon.cta),
+        ],
+      );
+
+  Widget _blackButton(String label) => MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          height: 37,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: const Color(0xFF1A1A18),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Align(
+            alignment: Alignment.center,
+            widthFactor: 1,
+            child: WlthyText(label, style: FigmaText.button(AppColors.white)),
+          ),
+        ),
+      );
 }
 
-/// Outlined "— in development" status pill (Figma: fill=-, r=8, ~34px).
+/// Outlined status pill (Figma: 34 tall, r=8, 1px light border, glyph +
+/// Inter 11/18 #5C5C58 label).
 class _StatusPill extends StatelessWidget {
-  const _StatusPill(this.label);
+  const _StatusPill(this.label, this.icon);
   final String label;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      height: 34,
+      padding: const EdgeInsets.symmetric(horizontal: 14),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.ink.withValues(alpha: 0.18)),
+        border: Border.all(color: const Color(0x26000000)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: 6,
-            height: 6,
-            decoration: const BoxDecoration(
-              color: AppColors.taupe,
-              shape: BoxShape.circle,
-            ),
-          ),
-          const SizedBox(width: 8),
+          Icon(icon, size: 15, color: const Color(0xFF5C5C58)),
+          const SizedBox(width: 7),
           WlthyText(label, style: FigmaText.statusPill(const Color(0xFF5C5C58))),
         ],
       ),

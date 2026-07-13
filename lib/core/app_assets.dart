@@ -2,24 +2,21 @@
 abstract final class AppImages {
   static const _base = 'assets/images';
 
-  /// Portrait "hand holding phone" showing the Freedom Number dashboard.
-  /// Used as the hero visual.
-  static const heroPhone = '$_base/screen_1.png';
+  /// Hand holding phone on the welcome/sign-up screen. Transparent PNG —
+  /// composited directly onto the section background. Used in the hero.
+  static const screen1 = '$_base/screen-1.png';
 
-  /// Wide banner: hands holding a phone on the onboarding screen, open space on
-  /// the left. Used for both the "Coming soon" banner and the "Four steps" band.
-  static const phoneBanner = '$_base/HorizontalBorder.jpg';
+  /// Hand holding phone showing the wlthy OS net-worth dashboard.
+  /// Transparent PNG. Used in the "Four steps" section.
+  static const screen2 = '$_base/screen-2.png';
+
+  /// Phone floating, showing the Freedom Plan screen. Transparent PNG. Used
+  /// in the "Coming soon" banner.
+  static const screen3 = '$_base/screen-3.png';
 
   /// Horizontal logo lockup: gold "W" mark + "wlthy" wordmark on a transparent
   /// background. Dark artwork — tint white when placed on dark surfaces.
   static const logo = '$_base/wlthy_logo.png';
-
-  // Section background images (exported from the Figma fills) ---------------
-  /// Hero: hand holding phone on the right, open grey space on the left.
-  static const heroBg = '$_base/hero_bg.png';
-
-  /// "Four steps" band background (same shot as [phoneBanner]).
-  static const stepsBg = '$_base/HorizontalBorder.jpg';
 
   /// Botanical shadow texture behind the "Who wlthy is built for" section.
   static const builtForBg = '$_base/whoIsWealthyBuildForBG.jpg';

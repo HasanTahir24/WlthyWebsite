@@ -7,8 +7,9 @@ import '../theme/app_typography.dart';
 import '../widgets/section_band.dart';
 import '../widgets/wlthy_text.dart';
 
-/// Quiet centred statement band (Figma 213:210): black eyebrow, a large
-/// light-weight taupe headline, and a centred serif paragraph.
+/// Quiet centred statement band (Figma 213:210, 1510×380): black eyebrow, a
+/// one-line light taupe headline, a centred serif paragraph, and a 2px taupe
+/// vertical line running down toward the next band.
 class ApproachSection extends StatelessWidget {
   const ApproachSection({super.key});
 
@@ -17,22 +18,23 @@ class ApproachSection extends StatelessWidget {
     final titleSize = context.responsive<double>(mobile: 28, desktop: 36);
     return SectionBand(
       background: AppColors.cream,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            WlthyText(
-              Approach.eyebrow.toUpperCase(),
-              textAlign: TextAlign.center,
-              boldWeight: FontWeight.w800,
-              style: FigmaText.eyebrow(AppColors.ink),
-            ),
-            const SizedBox(height: 18),
-            // Title box is 635px in the file.
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 640),
-              child: WlthyText(
+      // The taupe line runs to the band's bottom edge (no bottom padding).
+      verticalPadding: 0,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 40),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              WlthyText(
+                Approach.eyebrow.toUpperCase(),
+                textAlign: TextAlign.center,
+                boldWeight: FontWeight.w800,
+                style: FigmaText.eyebrow(const Color(0xFF000000)),
+              ),
+              const SizedBox(height: 18),
+              WlthyText(
                 Approach.title,
                 textAlign: TextAlign.center,
                 boldWeight: FontWeight.w500,
@@ -43,18 +45,21 @@ class ApproachSection extends StatelessWidget {
                   color: AppColors.taupe,
                 )),
               ),
-            ),
-            const SizedBox(height: 20),
-            // Body box is 582px in the file.
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 582),
-              child: WlthyText(
-                Approach.body,
-                textAlign: TextAlign.center,
-                style: FigmaText.approachBody(const Color(0xFF5C5C58)),
+              const SizedBox(height: 24),
+              // Body box is 582px in the file.
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 582),
+                child: WlthyText(
+                  Approach.body,
+                  textAlign: TextAlign.center,
+                  style: FigmaText.approachBody(const Color(0xFF5C5C58)),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 40),
+              // Figma "Line 26": 2px taupe vertical line, ~140 tall, centred.
+              Container(width: 2, height: 140, color: AppColors.taupe),
+            ],
+          ),
         ),
       ),
     );

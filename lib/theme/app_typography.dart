@@ -91,7 +91,7 @@ abstract final class FigmaText {
   // Hero —───────────────────────────────────────────────────────────────
   static TextStyle heroHeadline(Color c) => _f(36, FontWeight.w600, 48, c);
   static TextStyle heroSubtext(Color c) => _b(12, FontWeight.w400, 21, c);
-  static TextStyle heroSupportLine(Color c) => _f(10, FontWeight.w700, 16, c);
+  static TextStyle heroSupportLine(Color c) => _f(13, FontWeight.w500, 20, c);
   static TextStyle heroFinePrint(Color c) => _f(10, FontWeight.w500, 16, c);
   static TextStyle button(Color c) => _f(14, FontWeight.w500, 20, c);
 
@@ -143,7 +143,7 @@ abstract final class FigmaText {
   static TextStyle companyTitle(Color c) => _f(20, FontWeight.w800, 32, c);
   static TextStyle companyBody(Color c) => _f(13, FontWeight.w500, 20, c);
   static TextStyle companyQuote(Color c) =>
-      _b(14, FontWeight.w400, 20, c, style: FontStyle.italic);
+      _b(14, FontWeight.w400, 20, c);
   static TextStyle detailLabel(Color c) => _f(10, FontWeight.w700, 16, c);
   static TextStyle detailValue(Color c) => _f(10, FontWeight.w500, 16, c);
 

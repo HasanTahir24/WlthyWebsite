@@ -20,7 +20,8 @@ class BoundariesSection extends StatelessWidget {
           SectionHeader(
               eyebrow: Boundaries.eyebrow,
               title: Boundaries.title,
-              center: true),
+              center: true,
+              eyebrowColor: AppColors.ink),
           const SizedBox(height: 32),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 500),

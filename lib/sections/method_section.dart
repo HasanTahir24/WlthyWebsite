@@ -5,6 +5,7 @@ import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
 import '../widgets/common.dart';
 import '../widgets/section_band.dart';
+import '../widgets/wlthy_text.dart';
 
 /// "The wlthy Method" — the letters W L T H Y each carry a principle. A
 /// diagonal periwinkle motif sweeps across the band in the Figma.
@@ -25,6 +26,15 @@ class MethodSection extends StatelessWidget {
             body: Method.subtitle,
             center: true,
             maxWidth: 720,
+          ),
+          const SizedBox(height: 12),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 520),
+            child: WlthyText(
+              Method.description,
+              textAlign: TextAlign.center,
+              style: FigmaText.methodDescription(const Color(0xFF9C9C97)),
+            ),
           ),
           const SizedBox(height: 56),
           ResponsiveGrid(

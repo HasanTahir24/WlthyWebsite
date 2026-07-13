@@ -4,31 +4,47 @@ import '../core/responsive.dart';
 import '../data/site_content.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
-import '../widgets/common.dart';
 import '../widgets/section_band.dart';
 import '../widgets/wlthy_text.dart';
 
-/// Deep navy "company behind wlthy" band.
+/// Deep navy "company behind wlthy" band (Figma 213:513, 1510×294): title,
+/// description and gold quote on the left; a compact label|value detail table
+/// on the right with a FOLLOW US row of white brand glyphs.
 class CompanySection extends StatelessWidget {
   const CompanySection({super.key});
+
+  static const _label = Color(0xFF9C9C97);
+  static const _value = Color(0xFF5C5C58);
 
   @override
   Widget build(BuildContext context) {
     return SectionBand(
       gradient: AppColors.companyBand,
-      child: ResponsiveLayout(
-        mobile: (_) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_intro(context), const SizedBox(height: 32), _details(context)],
-        ),
-        desktop: (_) => Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(flex: 6, child: _intro(context)),
-            const SizedBox(width: 64),
-            Expanded(flex: 5, child: _details(context)),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          WlthyText(Company.eyebrow.toUpperCase(),
+              style: FigmaText.eyebrow(_label)),
+          const SizedBox(height: 6),
+          ResponsiveLayout(
+            mobile: (_) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _intro(context),
+                const SizedBox(height: 28),
+                _details(context),
+              ],
+            ),
+            desktop: (_) => Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(child: _intro(context)),
+                const SizedBox(width: 40),
+                SizedBox(width: 472, child: _details(context)),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -37,14 +53,20 @@ class CompanySection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Eyebrow(Company.eyebrow, onDark: true),
-          const SizedBox(height: 16),
-          WlthyText(Company.title, style: FigmaText.companyTitle(AppColors.onDark)),
-          const SizedBox(height: 18),
-          WlthyText(Company.description,
-              style: FigmaText.companyBody(const Color(0xFFF5F5F3))),
-          const SizedBox(height: 24),
-          WlthyText(Company.quote, style: FigmaText.companyQuote(AppColors.taupe)),
+          WlthyText(Company.title,
+              style: FigmaText.companyTitle(AppColors.white)),
+          const SizedBox(height: 11),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 403),
+            child: WlthyText(Company.description,
+                style: FigmaText.companyBody(const Color(0xFFF5F5F3))),
+          ),
+          const SizedBox(height: 10),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 487),
+            child: WlthyText(Company.quote,
+                style: FigmaText.companyQuote(AppColors.taupe)),
+          ),
         ],
       );
 
@@ -52,39 +74,41 @@ class CompanySection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          for (final d in Company.details)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  WlthyText(d.key.toUpperCase(),
-                      style: FigmaText.detailLabel(const Color(0xFF9C9C97))),
-                  const SizedBox(height: 4),
-                  WlthyText(d.value,
-                      style: FigmaText.detailValue(const Color(0xFF5C5C58))),
-                ],
-              ),
+          for (final d in Company.details) ...[
+            _row(
+              d.key.toUpperCase(),
+              WlthyText(d.value, style: FigmaText.detailValue(_value)),
             ),
-          WlthyText('FOLLOW US',
-              style: FigmaText.detailLabel(const Color(0xFF9C9C97))),
-          const SizedBox(height: 10),
-          const _SocialRow(),
+            const SizedBox(height: 10),
+          ],
+          _row('FOLLOW US', const _SocialRow()),
+        ],
+      );
+
+  /// Label (92px slot) + value side by side, as in the Figma table.
+  Widget _row(String label, Widget value) => Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 92,
+            child: WlthyText(label, style: FigmaText.detailLabel(_label)),
+          ),
+          Expanded(child: value),
         ],
       );
 }
 
+/// Plain white brand glyphs, no badges (Figma order: LinkedIn, Instagram,
+/// Facebook, TikTok, X).
 class _SocialRow extends StatelessWidget {
   const _SocialRow();
 
-  // Order matches the Figma follow-us row: LinkedIn, Instagram, Facebook,
-  // TikTok, X.
-  static const _icons = [
-    Icons.business_center_outlined, // LinkedIn placeholder
-    Icons.camera_alt_outlined, // Instagram placeholder
-    Icons.facebook, // Facebook
-    Icons.music_note_outlined, // TikTok placeholder
-    Icons.close, // X
+  static const _icons = <String>[
+    'assets/icons/social_linkedin.png',
+    'assets/icons/social_instagram.png',
+    'assets/icons/social_facebook.png',
+    'assets/icons/social_tiktok.png',
+    'assets/icons/social_x.png',
   ];
 
   @override
@@ -93,15 +117,12 @@ class _SocialRow extends StatelessWidget {
       children: [
         for (final icon in _icons)
           Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Container(
-              width: 28,
-              height: 28,
-              decoration: BoxDecoration(
-                color: AppColors.ink,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Icon(icon, size: 14, color: AppColors.white),
+            padding: const EdgeInsets.only(right: 22),
+            child: Image.asset(
+              icon,
+              height: 18,
+              fit: BoxFit.contain,
+              filterQuality: FilterQuality.high,
             ),
           ),
       ],

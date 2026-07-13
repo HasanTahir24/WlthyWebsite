@@ -53,13 +53,16 @@ abstract final class HeroContent {
       'Join wlthy to see yours.';
   static const subtext =
       'Your money is spread across income, spending, assets, debts, crypto, '
-      'property, and savings, but no calm view shows the full picture.';
+      'property, and plans. wlthy brings it into one calm view — so you can '
+      'understand where you stand and what to do next.';
   static const support =
       'A clarity-first wealth app for modern professionals, builders, creators, '
-      'and investors.';
+      'and investors who want financial freedom without spreadsheets, noise, '
+      'or pressure.';
   static const finePrint =
       'Currently in development by wlthy Technologies FZ-LLC, registered in '
-      'Ras Al Khaimah, United Arab Emirates.';
+      'Ras Al Khaimah, United Arab Emirates.  |  iOS & Android app in '
+      'development';
   static const primaryCta = 'Join the waitlist';
   static const secondaryCta = 'See how it works';
 }
@@ -183,7 +186,7 @@ abstract final class Steps {
     StepItem('03', 'Understand your position',
         'View net worth, runway, cashflow, and progress in one place.'),
     StepItem('04', 'Make one move each month',
-        'Protect your buffer, reduce pressure, build assets, or strengthen your position.'),
+        'Protect your buffer, reduce pressure, build assets, or strengthen your plan.'),
   ];
 }
 
@@ -192,6 +195,9 @@ abstract final class Method {
   static const title = 'The wlthy Method';
   static const subtitle =
       'Clarity → Stability → One Move → Compounding → Freedom';
+  static const description =
+      'A calm, repeatable framework for turning money into a plan you can '
+      'actually follow.';
   static const footnote =
       'Two goals. One move. Calm progress toward freedom.';
   static const letters = <StepItem>[
@@ -332,7 +338,8 @@ abstract final class ComingSoon {
   static const title = 'Coming soon on iOS & Android';
   static const body =
       'wlthy is being developed for iOS and Android. The first version focuses '
-      'on clarity, your Freedom Number, and one calm monthly move.';
+      'on guided financial clarity: Wealth Audit, Freedom Number, net worth, '
+      'runway, cashflow pulse, and a calm monthly check-up.';
   static const cta = 'Join the early list';
   static const statuses = <String>[
     'iOS — in development',

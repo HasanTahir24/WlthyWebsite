@@ -37,8 +37,9 @@ class SectionBand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Figma bands use ~40px vertical padding; keep that (was far too large).
     final vPad = verticalPadding ??
-        context.responsive<double>(mobile: 56, tablet: 72, desktop: 96);
+        context.responsive<double>(mobile: 40, tablet: 40, desktop: 44);
 
     return Container(
       width: double.infinity,

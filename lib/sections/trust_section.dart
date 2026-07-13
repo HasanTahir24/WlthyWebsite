@@ -24,7 +24,7 @@ class TrustSection extends StatelessWidget {
             title: Trust.title,
             eyebrowColor: AppColors.accentInk,
           ),
-          const SizedBox(height: 36),
+          const SizedBox(height: 30),
           ResponsiveGrid(
             desktopColumns: 6,
             tabletColumns: 3,
@@ -51,8 +51,11 @@ class _Item extends StatelessWidget {
       children: [
         WlthyText(item.title, style: FigmaText.trustItemTitle(AppColors.ink)),
         const SizedBox(height: 8),
-        WlthyText(item.body,
-            style: FigmaText.cardBody(const Color(0xFF5C5C58))),
+        SizedBox(
+          width: 135,
+          child: WlthyText(item.body,
+              style: FigmaText.cardBody(const Color(0xFF5C5C58))),
+        ),
       ],
     );
   }

@@ -24,8 +24,8 @@ class WaitlistSection extends StatelessWidget {
         desktop: (_) => Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(flex: 5, child: _intro(context)),
-            const SizedBox(width: 64),
+            SizedBox(width: 350, child: _intro(context)),
+            const SizedBox(width: 160),
             Expanded(flex: 6, child: _form(context)),
           ],
         ),
@@ -47,47 +47,54 @@ class WaitlistSection extends StatelessWidget {
         ],
       );
 
-  Widget _form(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
+  Widget _form(BuildContext context) => LayoutBuilder(
+        builder: (context, constraints) {
+          const gap = 28.0;
+          // All three fields share one width: half the form column on desktop,
+          // full width on mobile.
+          final fieldW = context.isMobile
+              ? constraints.maxWidth
+              : (constraints.maxWidth - gap) / 2;
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(child: _field('First name')),
-              const SizedBox(width: 32),
-              Expanded(child: _field('Email address')),
-            ],
-          ),
-          const SizedBox(height: 20),
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 300),
-            child: _field('Country of residence'),
-          ),
-          const SizedBox(height: 22),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 2),
-                width: 14,
-                height: 14,
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(3),
-                  border: Border.all(color: AppColors.hairline),
-                ),
+              Wrap(
+                spacing: gap,
+                runSpacing: 20,
+                children: [
+                  SizedBox(width: fieldW, child: _field('First name')),
+                  SizedBox(width: fieldW, child: _field('Email address')),
+                  SizedBox(width: fieldW, child: _field('Country of residence')),
+                ],
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: WlthyText(Waitlist.consent,
-                    style: FigmaText.fineprintInter9b(const Color(0xFF9C9C97))),
+              const SizedBox(height: 22),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 2),
+                    width: 14,
+                    height: 14,
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(3),
+                      border: Border.all(color: AppColors.hairline),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: WlthyText(Waitlist.consent,
+                        style:
+                            FigmaText.fineprintInter9b(const Color(0xFF9C9C97))),
+                  ),
+                ],
               ),
+              const SizedBox(height: 22),
+              _taupeButton(Waitlist.cta),
             ],
-          ),
-          const SizedBox(height: 22),
-          _taupeButton(Waitlist.cta),
-        ],
+          );
+        },
       );
 
   Widget _field(String label) => Column(

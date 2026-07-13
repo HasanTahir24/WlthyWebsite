@@ -37,6 +37,7 @@ class BuiltForSection extends StatelessWidget {
             mobileColumns: 1,
             children: [for (final c in BuiltFor.cards) _Card(c)],
           ),
+          const SizedBox(height: 80),
         ],
       ),
     );
@@ -50,20 +51,32 @@ class _Card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      height: 130,
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: AppColors.hairline),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          WlthyText(item.title, style: FigmaText.cardTitleSerif(AppColors.ink)),
-          const SizedBox(height: 10),
-          WlthyText(item.body,
-              style: FigmaText.cardBody(const Color(0xFF5C5C58))),
-        ],
+      // OverflowBox lets content take natural height so the fixed-height card
+      // clips gracefully instead of asserting (fallback fonts render taller).
+      child: OverflowBox(
+        alignment: Alignment.topLeft,
+        maxHeight: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              WlthyText(item.title,
+                  style: FigmaText.cardTitleSerif(AppColors.ink)),
+              const SizedBox(height: 10),
+              WlthyText(item.body,
+                  style: FigmaText.cardBody(const Color(0xFF5C5C58))),
+            ],
+          ),
+        ),
       ),
     );
   }

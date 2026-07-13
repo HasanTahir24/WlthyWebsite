@@ -38,6 +38,8 @@ class TracksSection extends StatelessWidget {
               ),
             ),
           ),
+
+          SizedBox(height: 28),
         ],
       ),
     );
@@ -60,9 +62,12 @@ class _Track extends StatelessWidget {
             textAlign: TextAlign.center,
             style: FigmaText.cardTitleSerif(AppColors.white)),
         const SizedBox(height: 8),
-        WlthyText(item.body,
-            textAlign: TextAlign.center,
-            style: FigmaText.cardBody(AppColors.white)),
+        SizedBox(
+          width: 200,
+          child: WlthyText(item.body,
+              textAlign: TextAlign.center,
+              style: FigmaText.cardBody(AppColors.white)),
+        ),
       ],
     );
   }

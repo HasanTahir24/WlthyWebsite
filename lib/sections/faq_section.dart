@@ -13,13 +13,13 @@ class FaqSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SectionBand(
-      background: AppColors.cream,
+      background: AppColors.white,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionHeader(
               eyebrow: Faq.eyebrow,
               title: Faq.title,
-              center: true,
               titleColor: AppColors.accentInk),
           const SizedBox(height: 40),
           ConstrainedBox(

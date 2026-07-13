@@ -65,7 +65,7 @@ class SectionHeader extends StatelessWidget {
       children: [
         if (eyebrow != null) ...[
           Eyebrow(eyebrow!, onDark: onDark, color: eyebrowColor),
-          const SizedBox(height: 16),
+          const SizedBox(height: 5),
         ],
         WlthyText(
           title,
