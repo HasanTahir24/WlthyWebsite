@@ -31,7 +31,7 @@ class HeroSection extends StatelessWidget {
   Widget _desktop(BuildContext context) {
     return ClipRect(
       child: DecoratedBox(
-        decoration: const BoxDecoration(gradient: _bgGradient),
+        decoration: context.isMobile ? BoxDecoration(color: AppColors.mobileGray) : BoxDecoration(gradient: _bgGradient),
         child: Center(
           // Gutter OUTSIDE the max-width column, exactly like SectionBand, so
           // the hero shares the same 1000px grid as every other section.
@@ -71,7 +71,7 @@ class HeroSection extends StatelessWidget {
 
   Widget _mobile(BuildContext context) {
     return DecoratedBox(
-      decoration: const BoxDecoration(gradient: _bgGradient),
+      decoration: const BoxDecoration(color: AppColors.mobileGray) ,
       child: Padding(
         padding: EdgeInsets.fromLTRB(context.gutter, 40, context.gutter, 0),
         child: Column(

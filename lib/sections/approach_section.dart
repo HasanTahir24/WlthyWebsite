@@ -57,7 +57,7 @@ class ApproachSection extends StatelessWidget {
               ),
               const SizedBox(height: 40),
               // Figma "Line 26": 2px taupe vertical line, ~140 tall, centred.
-              Container(width: 2, height: 140, color: AppColors.taupe),
+              Container(width: 2, height: context.isMobile ? 70: 140, color: AppColors.taupe),
             ],
           ),
         ),

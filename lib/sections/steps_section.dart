@@ -33,7 +33,7 @@ class StepsSection extends StatelessWidget {
       child: SizedBox(
         height: 350,
         child: ColoredBox(
-          color: AppColors.white,
+          color: context.isMobile ? AppColors.mobileGray : AppColors.white,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -81,7 +81,7 @@ class StepsSection extends StatelessWidget {
 
   Widget _mobile(BuildContext context) {
     return Container(
-      color: AppColors.white,
+      color: AppColors.mobileGray,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -102,10 +102,10 @@ class StepsSection extends StatelessWidget {
           ),
           // Photo below the steps, right-anchored (Figma 217:833 bottom area).
           Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
             child: Image.asset(
-              AppImages.screen2,
-              height: 340,
+              AppImages.screen2Mobile,
+              height: 400,
               fit: BoxFit.fitHeight,
               alignment: Alignment.centerRight,
               filterQuality: FilterQuality.high,
@@ -140,7 +140,7 @@ class _Step extends StatelessWidget {
       children: [
         WlthyText(step.number, style: FigmaText.stepNumber(AppColors.accentInk)),
         const SizedBox(height: 6),
-        WlthyText(step.title, style: FigmaText.cardTitleSerif(AppColors.ink)),
+        WlthyText(step.title, style: FigmaText.cardTitleSerif(AppColors.ink),maxLines: 2, overflow: TextOverflow.ellipsis),
         const SizedBox(height: 8),
         WlthyText(step.body,
             style: FigmaText.cardBody(const Color(0xFF5C5C58)),maxLines: 3, overflow: TextOverflow.ellipsis),

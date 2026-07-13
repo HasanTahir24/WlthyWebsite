@@ -15,18 +15,24 @@ class AudienceCardsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SectionBand(
+      maxWidth: double.infinity,
       gradient: AppColors.audienceBand,
       verticalPadding: 44,
       child: context.isMobile
-          ? Column(
-              children: [
-                for (final c in Audience.cards)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: _Card(c),
-                  ),
-              ],
-            )
+          ? SingleChildScrollView(
+            padding: const EdgeInsets.only(left: 10, right: 0),
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              child: Row(
+                children: [
+                  for (var i = 0; i < Audience.cards.length; i++) ...[
+                    if (i > 0) const SizedBox(width: 10),
+                    SizedBox(width: 242.5, child: _Card(Audience.cards[i])),
+                  ],
+                ],
+              ),
+            ),
+          )
           // Four equal-width cards, all a fixed 180px tall (Figma 242×180).
           : Row(
               children: [
@@ -65,9 +71,9 @@ class _Card extends StatelessWidget {
     );
 
     return Container(
-      height: context.isMobile ? null : 180,
+      height:  180,
       constraints:
-          context.isMobile ? const BoxConstraints(minHeight: 160) : null,
+           null,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: AppColors.white.withValues(alpha: 0.20),
@@ -77,9 +83,7 @@ class _Card extends StatelessWidget {
       // OverflowBox lets the content take its natural height (top-aligned) so
       // the fixed-height card never throws an overflow assertion — the card
       // simply clips anything beyond 180 (the real fonts fit within 180).
-      child: context.isMobile
-          ? content
-          : OverflowBox(
+      child:  OverflowBox(
               alignment: Alignment.topLeft,
               maxHeight: double.infinity,
               child: content,

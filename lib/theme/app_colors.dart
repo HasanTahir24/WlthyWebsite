@@ -20,6 +20,8 @@ abstract final class AppColors {
   static const inkMuted = Color(0xFF6E6A63);
   static const onDark = Color(0xFFF5F3EF);
   static const onDarkMuted = Color(0xFFB9B2A6);
+  static const gold = Color(0xFF9F8566);
+  static const starDust = Color(0xFF9C9C97);
 
   // Accent -----------------------------------------------------------------
   /// Periwinkle blue (Figma #83AAFF) — product UI + soft band highlights.
@@ -37,6 +39,9 @@ abstract final class AppColors {
 
   /// Taupe (Figma #9F8566) — waitlist CTA + tracks band top.
   static const taupe = Color(0xFF9F8566);
+
+  /// Mobile Gray
+  static const mobileGray = Color(0xFFD5D5D5);
 
   // The Figma dark bands are radial gradients with one axis stretched huge, so
   // they read as directional linears. Stops (0.17 / 0.62 / 1.0) are exact.

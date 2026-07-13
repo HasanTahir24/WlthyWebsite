@@ -25,9 +25,9 @@ class NavSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        border: Border(bottom: BorderSide(color: AppColors.hairline)),
+      decoration: BoxDecoration(
+        color: context.isMobile ? AppColors.mobileGray : AppColors.white,
+        border: context.isMobile ?  null :  const Border(bottom: BorderSide(color: AppColors.hairline)),
       ),
       child: Center(
         child: Padding(

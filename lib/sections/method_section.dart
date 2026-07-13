@@ -17,8 +17,8 @@ class MethodSection extends StatelessWidget {
     return SectionBand(
       background: AppColors.white,
       clip: true,
-      foregroundOverlay: const _DiagonalMotif(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SectionHeader(
             eyebrow: Method.eyebrow,
@@ -26,6 +26,8 @@ class MethodSection extends StatelessWidget {
             body: Method.subtitle,
             center: true,
             maxWidth: 720,
+            eyebrowColor: AppColors.starDust,
+            bodyStyle: FigmaText.methodDescription
           ),
           const SizedBox(height: 12),
           ConstrainedBox(
@@ -45,6 +47,13 @@ class MethodSection extends StatelessWidget {
             runSpacing: 32,
             children: [for (final l in Method.letters) _Letter(l)],
           ),
+          const SizedBox(height: 40),
+WlthyText(
+              "Two goals. One move. Calm progress toward freedom.",
+              textAlign: TextAlign.center,
+              style: FigmaText.methodDescription(const Color(0xFF9C9C97)),
+            ),
+          const SizedBox(height: 105),
         ],
       ),
     );
@@ -58,15 +67,16 @@ class _Letter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(item.number, style: FigmaText.methodLetter(AppColors.ink)),
+        Text(item.number, style: FigmaText.methodLetter(AppColors.gold)),
         const SizedBox(height: 12),
         Text(item.title.toUpperCase(),
             style: FigmaText.methodLetterTitle(AppColors.ink)),
         const SizedBox(height: 8),
         Text(item.body,
-            style: FigmaText.methodLetterBody(const Color(0xFF5C5C58))),
+            style: FigmaText.methodLetterBody(const Color(0xFF5C5C58)),
+            textAlign: TextAlign.center),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:wlthy_website/core/responsive.dart';
 
 import '../core/app_assets.dart';
 import '../data/site_content.dart';
@@ -28,7 +29,7 @@ class TracksSection extends StatelessWidget {
               child: ResponsiveGrid(
                 desktopColumns: 3,
                 tabletColumns: 2,
-                mobileColumns: 1,
+                mobileColumns: 2,
                 spacing: 24,
                 runSpacing: 44,
                 children: [
@@ -63,7 +64,7 @@ class _Track extends StatelessWidget {
             style: FigmaText.cardTitleSerif(AppColors.white)),
         const SizedBox(height: 8),
         SizedBox(
-          width: 200,
+          width: context.isMobile ? 160 : 200,
           child: WlthyText(item.body,
               textAlign: TextAlign.center,
               style: FigmaText.cardBody(AppColors.white)),
