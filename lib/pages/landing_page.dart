@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../core/scroll_registry.dart';
 import '../sections/approach_section.dart';
 import '../sections/audience_cards_section.dart';
 import '../sections/boundaries_section.dart';
@@ -23,23 +24,23 @@ import '../sections/waitlist_section.dart';
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
-  static const _sections = <Widget>[
-    HeroSection(),
-    AudienceCardsSection(),
-    WaitlistSection(),
-    ProblemSection(),
-    ApproachSection(),
-    TracksSection(),
-    StepsSection(),
-    MethodSection(),
-    BuiltForSection(),
-    TrustSection(),
-    PricingSection(),
-    BoundariesSection(),
-    PhoneBannerSection(),
-    CompanySection(),
-    FaqSection(),
-    FooterSection(),
+  static final _sections = <Widget>[
+    const HeroSection(),
+    const AudienceCardsSection(),
+    KeyedSubtree(key: SectionKeys.waitlist, child: const WaitlistSection()),
+    const ProblemSection(),
+    KeyedSubtree(key: SectionKeys.features, child: const ApproachSection()),
+    const TracksSection(),
+    KeyedSubtree(key: SectionKeys.howItWorks, child: const StepsSection()),
+    KeyedSubtree(key: SectionKeys.method, child: const MethodSection()),
+    const BuiltForSection(),
+    KeyedSubtree(key: SectionKeys.trust, child: const TrustSection()),
+    const PricingSection(),
+    const BoundariesSection(),
+    const PhoneBannerSection(),
+    KeyedSubtree(key: SectionKeys.company, child: const CompanySection()),
+    const FaqSection(),
+    const FooterSection(),
   ];
 
   @override

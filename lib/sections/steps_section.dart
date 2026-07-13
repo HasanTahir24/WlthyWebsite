@@ -23,58 +23,58 @@ class StepsSection extends StatelessWidget {
     return _desktop(context);
   }
 
+  // Figma 213:278 (1510×350): content column starts at x=126 (title + 4
+  // steps, 1003 wide, top-padded 40), leaving 381px on the right where the
+  // person-holding-phone cutout is pinned flush to the band's top/right/
+  // bottom edges. No Stack/Positioned — a fixed-height Row keeps the photo
+  // column from ever overlapping the text as the window is resized.
   Widget _desktop(BuildContext context) {
-    return Container(
-      color: AppColors.white,
-      child: Stack(
-        children: [
-          // Photo pinned to the band's top/right/bottom — its hard top and
-          // right edges align with the band edges, as in the Figma fill crop.
-          Positioned(
-            top: 0,
-            bottom: 0,
-            right: 0,
-            child: Image.asset(
-              AppImages.screen2,
-              fit: BoxFit.fitHeight,
-              alignment: Alignment.centerRight,
-              filterQuality: FilterQuality.high,
-            ),
-          ),
-          Center(
-            // Figma content grid for this band starts at x≈126 of 1510 —
-            // wider than the standard 1000 column.
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1256),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.gutter, vertical: 58),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 200, child: _title(context)),
-                    for (var i = 0; i < Steps.items.length; i++)
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          decoration: i > 0
-                              ? const BoxDecoration(
-                                  border: Border(
-                                    left: BorderSide(color: _divider),
-                                  ),
-                                )
-                              : null,
-                          child: _Step(Steps.items[i]),
+    return ClipRect(
+      child: SizedBox(
+        height: 350,
+        child: ColoredBox(
+          color: AppColors.white,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 126, top: 40),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 200, child: _title(context)),
+                      for (var i = 0; i < Steps.items.length; i++)
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            decoration: i > 0
+                                ? const BoxDecoration(
+                                    border: Border(
+                                      left: BorderSide(color: _divider),
+                                    ),
+                                  )
+                                : null,
+                            child: _Step(Steps.items[i]),
+                          ),
                         ),
-                      ),
-                    // Breathing room so the last column clears the photo.
-                    const SizedBox(width: 220),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+              SizedBox(
+                width: 381,
+                height: 350,
+                child: Image.asset(
+                  AppImages.screen2,
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topRight,
+                  filterQuality: FilterQuality.high,
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -143,7 +143,7 @@ class _Step extends StatelessWidget {
         WlthyText(step.title, style: FigmaText.cardTitleSerif(AppColors.ink)),
         const SizedBox(height: 8),
         WlthyText(step.body,
-            style: FigmaText.cardBody(const Color(0xFF5C5C58))),
+            style: FigmaText.cardBody(const Color(0xFF5C5C58)),maxLines: 3, overflow: TextOverflow.ellipsis),
       ],
     );
   }

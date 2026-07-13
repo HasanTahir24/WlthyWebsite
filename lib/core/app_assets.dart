@@ -5,10 +5,12 @@ abstract final class AppImages {
   /// Hand holding phone on the welcome/sign-up screen. Transparent PNG —
   /// composited directly onto the section background. Used in the hero.
   static const screen1 = '$_base/screen-1.png';
+  static const screen1Mobile = '$_base/screen-1-mobile.png';
 
   /// Hand holding phone showing the wlthy OS net-worth dashboard.
   /// Transparent PNG. Used in the "Four steps" section.
   static const screen2 = '$_base/screen-2.png';
+  static const screen2Mobile = '$_base/screen-2-mobile.png';
 
   /// Phone floating, showing the Freedom Plan screen. Transparent PNG. Used
   /// in the "Coming soon" banner.
@@ -17,6 +19,10 @@ abstract final class AppImages {
   /// Horizontal logo lockup: gold "W" mark + "wlthy" wordmark on a transparent
   /// background. Dark artwork — tint white when placed on dark surfaces.
   static const logo = '$_base/wlthy_logo.png';
+
+  /// Square footer logo (gold mark over "wlthy"), baked onto the footer's
+  /// #251B10 brown so it blends into the band.
+  static const logoPortrait = '$_base/wlthy_logo_portrait.png';
 
   /// Botanical shadow texture behind the "Who wlthy is built for" section.
   static const builtForBg = '$_base/whoIsWealthyBuildForBG.jpg';

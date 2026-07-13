@@ -1,0 +1,22 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /waitlist/{docId} {
+      allow create: if request.resource.data.keys().hasOnly(
+                        ['firstName', 'email', 'country', 'createdAt']) &&
+                      request.resource.data.firstName is string &&
+                      request.resource.data.firstName.size() > 0 &&
+                      request.resource.data.email is string &&
+                      request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$') &&
+                      request.resource.data.country is string &&
+                      request.resource.data.country.size() > 0;
+
+      // Only allow the duplicate-email lookup the app performs
+      // (a single-result query), never a bulk dump of the collection.
+      allow list: if request.query.limit <= 1;
+
+      allow get, update, delete: if false;
+    }
+  }
+}

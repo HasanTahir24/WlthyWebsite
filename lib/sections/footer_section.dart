@@ -1,83 +1,108 @@
 import 'package:flutter/material.dart';
 
+import '../core/app_assets.dart';
 import '../core/responsive.dart';
 import '../data/site_content.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
-import '../widgets/common.dart';
-import '../widgets/section_band.dart';
 import '../widgets/wlthy_text.dart';
 
+/// Footer (Figma 213:614, 1510×430, #251B10): a square wlthy logo with tagline
+/// on the left, then three link columns (Product, Company, Legal). No divider
+/// or copyright line in the file. Content starts at a 48px gutter.
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
 
+  static const _gutter = 48.0;
+
   @override
   Widget build(BuildContext context) {
-    return SectionBand(
-      background: AppColors.footer,
-      verticalPadding: context.responsive(mobile: 48, desktop: 72),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ResponsiveLayout(
-            mobile: (_) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _brand(context),
-                const SizedBox(height: 32),
-                _links(context),
-              ],
-            ),
-            desktop: (_) => Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(flex: 5, child: _brand(context)),
-                Expanded(flex: 6, child: _links(context)),
-              ],
+    return Container(
+      width: double.infinity,
+      color: AppColors.footer,
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: context.responsive<double>(
+                mobile: 20, tablet: 40, desktop: _gutter),
+            vertical: 40,
+          ),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1414),
+            child: ResponsiveLayout(
+              mobile: (_) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _brand(),
+                  const SizedBox(height: 40),
+                  Wrap(
+                    spacing: 40,
+                    runSpacing: 32,
+                    children: [for (final c in Footer.columns) _linkColumn(c)],
+                  ),
+                ],
+              ),
+              desktop: (_) => Padding(
+                padding: const EdgeInsets.only(bottom: 100.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 400, child: _brand()),
+                    const SizedBox(width: 40),
+                    Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          for (final c in Footer.columns)
+                            Expanded(child: _linkColumn(c)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-          const SizedBox(height: 48),
-          const Divider(color: AppColors.hairlineOnDark, height: 1),
-          const SizedBox(height: 24),
-          WlthyText('© 2026 wlthy Technologies FZ-LLC. All rights reserved.',
-              style: FigmaText.footerLink(AppColors.onDarkMuted)),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _brand(BuildContext context) => Column(
+  Widget _brand() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          const WlthyWordmark(onDark: true, height: 40),
-          const SizedBox(height: 16),
-          WlthyText(Footer.tagline, style: FigmaText.footerTagline(AppColors.onDark)),
-          const SizedBox(height: 8),
-          WlthyText(Footer.subtitle, style: FigmaText.footerSubtitle(AppColors.onDark)),
+          Image.asset(AppImages.logoPortrait,
+              width: 116, height: 116, filterQuality: FilterQuality.high),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(left: 22),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                WlthyText(Footer.tagline,
+                    style: FigmaText.footerTagline(AppColors.white)),
+                const SizedBox(height: 17),
+                WlthyText(Footer.subtitle,
+                    style: FigmaText.footerSubtitle(AppColors.white)),
+              ],
+            ),
+          ),
         ],
       );
 
-  Widget _links(BuildContext context) => Wrap(
-        spacing: 48,
-        runSpacing: 32,
+  Widget _linkColumn(MapEntry<String, List<String>> col) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          for (final col in Footer.columns)
-            SizedBox(
-              width: 160,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  WlthyText(col.key.toUpperCase(),
-                      style: FigmaText.footerColumnHeader(AppColors.onDark)),
-                  const SizedBox(height: 16),
-                  for (final link in col.value)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: WlthyText(link,
-                          style: FigmaText.footerLink(AppColors.onDark)),
-                    ),
-                ],
-              ),
+          WlthyText(col.key.toUpperCase(),
+              style: FigmaText.footerColumnHeader(AppColors.white)),
+          const SizedBox(height: 10),
+          for (final link in col.value)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: WlthyText(link,
+                  style: FigmaText.footerLink(AppColors.white)),
             ),
         ],
       );

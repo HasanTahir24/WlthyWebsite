@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../core/app_assets.dart';
 import '../core/responsive.dart';
+import '../core/scroll_registry.dart';
 import '../data/site_content.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
@@ -39,31 +40,27 @@ class HeroSection extends StatelessWidget {
             child: ConstrainedBox(
               constraints:
                   const BoxConstraints(maxWidth: Breakpoints.maxContentWidth),
-              child: SizedBox(
-                width: double.infinity,
-                child: Stack(
-                  children: [
-                  // Copy sizes the band; kept to the left half.
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 72),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 560),
-                      child: _copy(context),
-                    ),
+              child: Row(
+                children: [
+                // Copy sizes the band; kept to the left half.
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 72),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 560),
+                    child: _copy(context),
                   ),
-                  // Phone bleeds off the top/bottom (clipped by the band).
-                  Positioned(
-                    top: -40,
-                    bottom: -200,
-                    right: -32,
-                    child: Image.asset(
-                      AppImages.screen1,
-                      fit: BoxFit.fitHeight,
-                      filterQuality: FilterQuality.high,
-                    ),
-                  ),
-                  ],
                 ),
+                // Phone bleeds off the top/bottom (clipped by the band).
+                Spacer(),
+                SizedBox(
+                  height: 650,
+                  child: Image.asset(
+                    AppImages.screen1,
+                    fit: BoxFit.fitHeight,
+                    filterQuality: FilterQuality.high,
+                  ),
+                ),
+                ],
               ),
             ),
           ),
@@ -83,7 +80,7 @@ class HeroSection extends StatelessWidget {
             _copy(context),
             const SizedBox(height: 24),
             Center(
-              child: Image.asset(AppImages.screen1,
+              child: Image.asset(AppImages.screen1Mobile,
                   width: 280, fit: BoxFit.contain),
             ),
           ],
@@ -127,9 +124,11 @@ class HeroSection extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _PrimaryButton(HeroContent.primaryCta),
+            _PrimaryButton(HeroContent.primaryCta,
+                onTap: () => scrollToSection(SectionKeys.waitlist)),
             const SizedBox(width: 24),
-            _TextButton(HeroContent.secondaryCta),
+            _TextButton(HeroContent.secondaryCta,
+                onTap: () => scrollToSection(SectionKeys.howItWorks)),
           ],
         ),
         const SizedBox(height: 18),
@@ -141,36 +140,44 @@ class HeroSection extends StatelessWidget {
 }
 
 class _PrimaryButton extends StatelessWidget {
-  const _PrimaryButton(this.label);
+  const _PrimaryButton(this.label, {required this.onTap});
   final String label;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          color: AppColors.taupe,
-          borderRadius: BorderRadius.circular(8),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            color: AppColors.taupe,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: WlthyText(label, style: FigmaText.button(AppColors.white)),
         ),
-        child: WlthyText(label, style: FigmaText.button(AppColors.white)),
       ),
     );
   }
 }
 
 class _TextButton extends StatelessWidget {
-  const _TextButton(this.label);
+  const _TextButton(this.label, {required this.onTap});
   final String label;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: WlthyText(label,
-          style: FigmaText.button(const Color(0xFF5C5C58))
-              .copyWith(decoration: TextDecoration.underline)),
+      child: GestureDetector(
+        onTap: onTap,
+        child: WlthyText(label,
+            style: FigmaText.button(const Color(0xFF5C5C58))
+                .copyWith(decoration: TextDecoration.underline)),
+      ),
     );
   }
 }
