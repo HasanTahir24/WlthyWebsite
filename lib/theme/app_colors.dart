@@ -22,6 +22,7 @@ abstract final class AppColors {
   static const onDarkMuted = Color(0xFFB9B2A6);
   static const gold = Color(0xFF9F8566);
   static const starDust = Color(0xFF9C9C97);
+  static const logCabin = Color(0xFF1A1A18);
 
   // Accent -----------------------------------------------------------------
   /// Periwinkle blue (Figma #83AAFF) — product UI + soft band highlights.

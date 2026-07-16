@@ -2,14 +2,34 @@ import 'package:flutter/material.dart';
 
 import '../core/app_assets.dart';
 import '../core/responsive.dart';
+import '../core/scroll_registry.dart';
 import '../data/site_content.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
 import '../widgets/wlthy_text.dart';
 
+/// Maps each footer link to the section it scrolls to, mirroring the nav bar.
+/// The Legal column has no matching band on the page, so those links are
+/// absent here and render as plain, non-interactive text.
+final Map<String, GlobalKey> _footerTargets = {
+  'How it works': SectionKeys.howItWorks,
+  'Features': SectionKeys.features,
+  'The wlthy Method': SectionKeys.method,
+  'Join the waitlist': SectionKeys.waitlist,
+  'About': SectionKeys.company,
+  'Trust': SectionKeys.trust,
+  'Contact': SectionKeys.company,
+};
+
 /// Footer (Figma 213:614, 1510×430, #251B10): a square wlthy logo with tagline
 /// on the left, then three link columns (Product, Company, Legal). No divider
 /// or copyright line in the file. Content starts at a 48px gutter.
+///
+/// Mobile (Figma 217:1085, 398×413) reorders this: the three link columns
+/// come first in a plain Row (natural, unequal widths — "Product" is wider
+/// than "Company"/"Legal"), then the brand block (logo + tagline, both
+/// centered) sits below, separated by a 28px gap. Padding is 40/32, not the
+/// standard mobile gutter.
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
 
@@ -24,23 +44,28 @@ class FooterSection extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: context.responsive<double>(
-                mobile: 20, tablet: 40, desktop: _gutter),
-            vertical: 40,
+                mobile: 40, tablet: 40, desktop: _gutter),
+            vertical: context.responsive<double>(mobile: 0, desktop: 40),
           ),
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1414),
             child: ResponsiveLayout(
-              mobile: (_) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _brand(),
-                  const SizedBox(height: 40),
-                  Wrap(
-                    spacing: 40,
-                    runSpacing: 32,
-                    children: [for (final c in Footer.columns) _linkColumn(c)],
-                  ),
-                ],
+              mobile: (_) => Padding(
+                padding: const EdgeInsets.only(top: 40, bottom: 32),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        for (final c in Footer.columns) _linkColumn(c),
+                      ],
+                    ),
+                    const SizedBox(height: 28),
+                    _brand(centered: true),
+                  ],
+                ),
               ),
               desktop: (_) => Padding(
                 padding: const EdgeInsets.only(bottom: 100.0),
@@ -68,22 +93,28 @@ class FooterSection extends StatelessWidget {
     );
   }
 
-  Widget _brand() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _brand({bool centered = false}) => Column(
+        crossAxisAlignment:
+            centered ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset(AppImages.logoPortrait,
               width: 116, height: 116, filterQuality: FilterQuality.high),
           const SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.only(left: 22),
+            padding:
+                centered ? EdgeInsets.zero : const EdgeInsets.only(left: 22),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: centered
+                  ? CrossAxisAlignment.center
+                  : CrossAxisAlignment.start,
               children: [
                 WlthyText(Footer.tagline,
+                    textAlign: centered ? TextAlign.center : null,
                     style: FigmaText.footerTagline(AppColors.white)),
                 const SizedBox(height: 17),
                 WlthyText(Footer.subtitle,
+                    textAlign: centered ? TextAlign.center : null,
                     style: FigmaText.footerSubtitle(AppColors.white)),
               ],
             ),
@@ -101,9 +132,31 @@ class FooterSection extends StatelessWidget {
           for (final link in col.value)
             Padding(
               padding: const EdgeInsets.only(bottom: 6),
-              child: WlthyText(link,
-                  style: FigmaText.footerLink(AppColors.white)),
+              child: _FooterLink(link),
             ),
         ],
       );
+}
+
+/// A footer link. Scrolls to its section when one is registered in
+/// [_footerTargets]; otherwise renders as plain text with no click affordance.
+class _FooterLink extends StatelessWidget {
+  const _FooterLink(this.label);
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final text =
+        WlthyText(label, style: FigmaText.footerLink(AppColors.white));
+    final target = _footerTargets[label];
+    if (target == null) return text;
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => scrollToSection(target),
+        child: text,
+      ),
+    );
+  }
 }

@@ -120,7 +120,7 @@ abstract final class FigmaText {
   static TextStyle methodDescription(Color c) => _b(12, FontWeight.w400, 21, c);
   static TextStyle methodLetter(Color c) => _f(45, FontWeight.w600, 50, c);
   static TextStyle methodLetterTitle(Color c) => _f(10, FontWeight.w700, 16, c);
-  static TextStyle methodLetterBody(Color c) => _i(9, FontWeight.w400, 15, c);
+  static TextStyle methodLetterBody(Color c) => _i(13, FontWeight.w400, 15, c);
 
   // Trust —──────────────────────────────────────────────────────────────
   static TextStyle trustItemTitle(Color c) => _f(13, FontWeight.w700, 20, c);
@@ -130,6 +130,9 @@ abstract final class FigmaText {
   static TextStyle tierName(Color c) => _f(26, FontWeight.w400, 20, c);
   static TextStyle tierPrice(Color c) => _f(14, FontWeight.w600, 20, c);
   static TextStyle tierButton(Color c) => _f(14, FontWeight.w400, 20, c);
+  // Card description + bulleted feature list use the Baskerville serif.
+  static TextStyle tierDescription(Color c) => _b(12, FontWeight.w400, 20, c);
+  static TextStyle tierBullet(Color c) => _b(13, FontWeight.w500, 20, c);
 
   // Boundaries —─────────────────────────────────────────────────────────
   static TextStyle chip(Color c) => _f(13, FontWeight.w700, 20, c);

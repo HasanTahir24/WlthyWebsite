@@ -11,7 +11,7 @@ import '../sections/footer_section.dart';
 import '../sections/hero_section.dart';
 import '../sections/method_section.dart';
 import '../sections/nav_section.dart';
-import '../sections/phone_banner_section.dart';
+import '../sections/coming_soon_section.dart';
 import '../sections/pricing_section.dart';
 import '../sections/problem_section.dart';
 import '../sections/steps_section.dart';
@@ -37,7 +37,7 @@ class LandingPage extends StatelessWidget {
     KeyedSubtree(key: SectionKeys.trust, child: const TrustSection()),
     const PricingSection(),
     const BoundariesSection(),
-    const PhoneBannerSection(),
+    const ComingSoonSection(),
     KeyedSubtree(key: SectionKeys.company, child: const CompanySection()),
     const FaqSection(),
     const FooterSection(),

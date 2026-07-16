@@ -15,6 +15,7 @@ class SectionBand extends StatelessWidget {
     this.background,
     this.gradient,
     this.verticalPadding,
+    this.horizontalPadding,
     this.maxWidth = Breakpoints.maxContentWidth,
     this.clip = false,
     this.foregroundOverlay,
@@ -25,6 +26,7 @@ class SectionBand extends StatelessWidget {
   final Color? background;
   final Gradient? gradient;
   final double? verticalPadding;
+  final double? horizontalPadding;
   final double maxWidth;
   final bool clip;
 
@@ -56,7 +58,7 @@ class SectionBand extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(
                 vertical: vPad,
-                horizontal: context.gutter,
+                horizontal: horizontalPadding ?? context.gutter,
               ),
               child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: maxWidth),

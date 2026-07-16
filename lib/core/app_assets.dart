@@ -27,6 +27,9 @@ abstract final class AppImages {
   /// Botanical shadow texture behind the "Who wlthy is built for" section.
   static const builtForBg = '$_base/whoIsWealthyBuildForBG.jpg';
 
+  //Method Page
+static const methodBG = '$_base/method-bg.jpg';
+  static const methodBGMobile = '$_base/method-bg-mobile.jpg';
   // Track icons (exported SVG from Figma), in the order of Tracks.items.
   static const _icons = 'assets/icons';
   static const trackIcons = <String>[

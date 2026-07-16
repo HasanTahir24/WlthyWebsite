@@ -11,8 +11,8 @@ import '../widgets/wlthy_text.dart';
 /// on the left, the two status pills stacked in the upper-middle-right
 /// (x≈903), and the Freedom-Plan phone anchored top-right, cropped by the
 /// band's bottom edge.
-class PhoneBannerSection extends StatelessWidget {
-  const PhoneBannerSection({super.key});
+class ComingSoonSection extends StatelessWidget {
+  const ComingSoonSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,12 +84,12 @@ class PhoneBannerSection extends StatelessWidget {
 
   Widget _mobile(BuildContext context) {
     return Container(
-      color: AppColors.white,
+      color: AppColors.sand,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(context.gutter, 40, context.gutter, 0),
+            padding: EdgeInsets.fromLTRB(37.5, 40, 37.5, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -110,16 +110,13 @@ class PhoneBannerSection extends StatelessWidget {
           // Phone cropped at the band bottom, right-aligned.
           ClipRect(
             child: Align(
-              alignment: Alignment.topRight,
+              alignment: Alignment.topCenter,
               heightFactor: 0.75,
-              child: Padding(
-                padding: EdgeInsets.only(right: context.gutter),
-                child: Image.asset(
-                  AppImages.screen3,
-                  width: 300,
-                  fit: BoxFit.fitWidth,
-                  filterQuality: FilterQuality.high,
-                ),
+              child: Image.asset(
+                AppImages.screen3,
+                width: 300,
+                fit: BoxFit.fitWidth,
+                filterQuality: FilterQuality.high,
               ),
             ),
           ),

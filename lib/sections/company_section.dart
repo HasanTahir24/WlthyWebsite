@@ -20,6 +20,7 @@ class CompanySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SectionBand(
       gradient: AppColors.companyBand,
+      horizontalPadding: context.isMobile ? 40 : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -117,7 +118,7 @@ class _SocialRow extends StatelessWidget {
       children: [
         for (final icon in _icons)
           Padding(
-            padding: const EdgeInsets.only(right: 22),
+            padding: const EdgeInsets.only(right: 32),
             child: Image.asset(
               icon,
               height: 18,

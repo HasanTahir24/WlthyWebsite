@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wlthy_website/core/responsive.dart';
 
 import '../data/site_content.dart';
 import '../theme/app_colors.dart';
@@ -13,6 +14,7 @@ class FaqSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SectionBand(
+      horizontalPadding: context.isMobile ? 40 : null,
       background: AppColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,8 +22,10 @@ class FaqSection extends StatelessWidget {
           SectionHeader(
               eyebrow: Faq.eyebrow,
               title: Faq.title,
-              titleColor: AppColors.accentInk),
-          const SizedBox(height: 40),
+              titleColor: AppColors.accentInk,
+              eyebrowColor: AppColors.ink,
+              ),
+          const SizedBox(height: 25),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 820),
             child: Column(

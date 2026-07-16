@@ -35,9 +35,11 @@ class BuiltForSection extends StatelessWidget {
             desktopColumns: 4,
             tabletColumns: 2,
             mobileColumns: 1,
+            spacing: 10,
+            runSpacing: 10,
             children: [for (final c in BuiltFor.cards) _Card(c)],
           ),
-          const SizedBox(height: 80),
+          const SizedBox(height: 60),
         ],
       ),
     );
@@ -70,7 +72,7 @@ class _Card extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               WlthyText(item.title,
-                  style: FigmaText.cardTitleSerif(AppColors.ink)),
+                  style: FigmaText.cardTitleSerif(AppColors.logCabin)),
               const SizedBox(height: 10),
               WlthyText(item.body,
                   style: FigmaText.cardBody(const Color(0xFF5C5C58))),
