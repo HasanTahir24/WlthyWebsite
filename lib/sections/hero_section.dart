@@ -52,12 +52,15 @@ class HeroSection extends StatelessWidget {
                 ),
                 // Phone bleeds off the top/bottom (clipped by the band).
                 Spacer(),
-                SizedBox(
-                  height: 650,
-                  child: Image.asset(
-                    AppImages.screen1,
-                    fit: BoxFit.fitHeight,
-                    filterQuality: FilterQuality.high,
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: SizedBox(
+                    height: 650,
+                    child: Image.asset(
+                      AppImages.screen1,
+                      fit: BoxFit.fitHeight,
+                      filterQuality: FilterQuality.high,
+                    ),
                   ),
                 ),
                 ],
@@ -78,10 +81,23 @@ class HeroSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _copy(context),
-            const SizedBox(height: 24),
-            Center(
-              child: Image.asset(AppImages.screen1Mobile,
-                  width: 280, fit: BoxFit.contain),
+            SizedBox(height: 32),
+            Stack(
+              children: [
+                Align(
+                  heightFactor: 1,
+                  alignment: Alignment.topCenter,
+                  child: Image.asset(AppImages.screen1Mobile,
+                      fit: BoxFit.contain),
+                ),
+                    Positioned(
+                      bottom: 22,
+                      left: 0,
+                      right: 50,
+                      child:  WlthyText(HeroContent.finePrint,
+                        style: FigmaText.heroFinePrint( AppColors.white)),
+                    ),
+              ],
             ),
           ],
         ),
@@ -131,9 +147,11 @@ class HeroSection extends StatelessWidget {
                 onTap: () => scrollToSection(SectionKeys.howItWorks)),
           ],
         ),
+        if (context.isDesktop) ...[
         const SizedBox(height: 18),
         WlthyText(HeroContent.finePrint,
             style: FigmaText.heroFinePrint(const Color(0xFF1E1E1E))),
+        ]
       ],
     );
   }

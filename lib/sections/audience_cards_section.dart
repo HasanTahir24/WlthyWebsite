@@ -35,10 +35,12 @@ class AudienceCardsSection extends StatelessWidget {
           )
           // Four equal-width cards, all a fixed 180px tall (Figma 242×180).
           : Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (var i = 0; i < Audience.cards.length; i++) ...[
                   if (i > 0) const SizedBox(width: 10),
-                  Expanded(child: _Card(Audience.cards[i])),
+                  SizedBox(width: 242.5, child: _Card(Audience.cards[i])),
                 ],
               ],
             ),
