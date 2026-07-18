@@ -32,8 +32,60 @@
 
   <title>wlthy_website</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Loading splash: shown instantly (self-contained, no network requests),
+       removed on Flutter's first painted frame. Cream background matches the
+       hero so there is no colour flash when the app takes over. -->
+  <style>
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      background: #F5F5F3;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+    #splash.hide { opacity: 0; pointer-events: none; }
+    #splash img { width: 148px; max-width: 44vw; height: auto; }
+    #splash .spinner {
+      width: 26px;
+      height: 26px;
+      border: 2px solid rgba(165, 138, 106, 0.25);
+      border-top-color: #A58A6A;
+      border-radius: 50%;
+      animation: splash-spin 0.8s linear infinite;
+    }
+    @keyframes splash-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      #splash .spinner { animation: none; }
+    }
+  </style>
 </head>
 <body>
+  <div id="splash">
+    <img src="wlthy_logo.png" alt="wlthy" />
+    <div class="spinner"></div>
+  </div>
+  <script>
+    (function () {
+      function hideSplash() {
+        var el = document.getElementById('splash');
+        if (!el) return;
+        el.classList.add('hide');
+        setTimeout(function () { el.remove(); }, 500);
+      }
+      // Remove the splash the moment Flutter paints its first frame…
+      window.addEventListener('flutter-first-frame', hideSplash);
+      // …with a safety net so it can never get stuck if that event is missed.
+      setTimeout(hideSplash, 15000);
+    })();
+  </script>
+
   <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader

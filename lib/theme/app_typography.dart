@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
 
-/// Font-family helpers. Three brand faces, fetched at runtime via
-/// `google_fonts` (no bundled files):
+/// Font-family helpers. Three brand faces, bundled as local variable fonts
+/// (see `pubspec.yaml`) — no runtime network fetch:
 ///  * **Libre Franklin** (sans) — headings, body, nav, buttons, eyebrows.
 ///  * **Libre Baskerville** (serif) — card/block titles, descriptive copy.
 ///  * **Inter** — fine print / disclaimers / small UI text.
 abstract final class AppType {
   static TextStyle sans(TextStyle style) =>
-      GoogleFonts.libreFranklin(textStyle: style);
+      style.copyWith(fontFamily: 'Libre Franklin');
 
   static TextStyle serif(TextStyle style) =>
-      GoogleFonts.libreBaskerville(textStyle: style);
+      style.copyWith(fontFamily: 'Libre Baskerville');
 
   static TextStyle inter(TextStyle style) =>
-      GoogleFonts.inter(textStyle: style);
+      style.copyWith(fontFamily: 'Inter');
 
   /// The "wlthy" wordmark / large method letters — primary sans.
   static TextStyle wordmark({

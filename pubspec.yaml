@@ -35,8 +35,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
-  # Brand typography — fetched at runtime, no font files to bundle.
-  google_fonts: ^8.1.0
   flutter_svg: ^2.3.0
   firebase_core: ^4.12.0
   cloud_firestore: 6.6.0
@@ -70,28 +68,16 @@ flutter:
     - assets/images/
     - assets/icons/
 
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
+  # Brand typography — bundled locally (was fetched at runtime via
+  # google_fonts). These are variable fonts, so a single file per family
+  # covers every weight the design uses (Flutter maps fontWeight → wght axis).
+  fonts:
+    - family: Libre Franklin
+      fonts:
+        - asset: assets/fonts/LibreFranklin-VariableFont_wght.ttf
+    - family: Libre Baskerville
+      fonts:
+        - asset: assets/fonts/LibreBaskerville-VariableFont_wght.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-VariableFont.ttf
