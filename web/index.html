@@ -1,6 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LYZ8JPV4VM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-LYZ8JPV4VM');
+  </script>
+
   <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
@@ -19,18 +29,67 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="description" content="A new Flutter project.">
+  <!-- Primary SEO Meta Tags -->
+  <title>WLTHY | Financial App for Net Worth and Cashflow Clarity</title>
+  <meta
+    name="description"
+    content="WLTHY gives you a clearer view of income, assets, liabilities, net worth, runway and monthly cashflow in one calm financial app built for better decisions."
+  >
+  <meta name="robots" content="index, follow">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://wlthy.app/">
+
+  <!-- Structured Data -->
+ <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://wlthy.app/#app",
+  "name": "WLTHY",
+  "url": "https://wlthy.app/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "description": "WLTHY gives users a clearer view of income, assets, liabilities, net worth, runway and monthly cashflow in one calm financial app.",
+  "publisher": {
+    "@id": "https://wlthy.app/#organization"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+  <!-- Open Graph / Social Sharing Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="WLTHY">
+  <meta property="og:title" content="WLTHY | Financial App for Net Worth and Cashflow Clarity">
+  <meta property="og:description" content="WLTHY gives you a clearer view of income, assets, liabilities, net worth, runway and monthly cashflow in one calm financial app built for better decisions.">
+  <meta property="og:url" content="https://wlthy.app/">
+  <meta property="og:image" content="https://wlthy.app/og-image.jpg">
+  <meta property="og:image:secure_url" content="https://wlthy.app/og-image.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="WLTHY financial app preview showing net worth, cashflow and personal finance clarity.">
+
+  <!-- Twitter / X Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="WLTHY | Financial App for Net Worth and Cashflow Clarity">
+  <meta name="twitter:description" content="WLTHY gives you a clearer view of income, assets, liabilities, net worth, runway and monthly cashflow in one calm financial app built for better decisions.">
+  <meta name="twitter:image" content="https://wlthy.app/og-image.jpg">
+  <meta name="twitter:image:alt" content="WLTHY financial app preview showing net worth, cashflow and personal finance clarity.">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="wlthy_website">
+  <meta name="apple-mobile-web-app-title" content="WLTHY">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>wlthy_website</title>
   <link rel="manifest" href="manifest.json">
 
   <!-- Loading splash: shown instantly (self-contained, no network requests),
@@ -67,6 +126,11 @@
   </style>
 </head>
 <body>
+  <div style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;">
+  <h1>You need more than a finance app. You need a clear picture. Join wlthy to see yours.</h1>
+  <h2>Your money is spread across income, spending, assets, debts, crypto, property, and plans. wlthy brings it into one calm view — so you can understand where you stand and what to do next.</h2>
+</div>
+
   <div id="splash">
     <img src="wlthy_logo.png" alt="wlthy" />
     <div class="spinner"></div>
@@ -96,9 +160,9 @@
   -->
     <script>
 if (window.location.hostname === "wlthy-e9bce.firebaseapp.com") {
-    window.location.replace("https://web.app" + window.location.pathname + window.location.search);
+    window.location.replace("https://wlthy.app" + window.location.pathname + window.location.search);
   }
 </script>
-  <script src="flutter_bootstrap.js" async></script>
+  <script src="flutter_bootstrap.js" defer></script>
 </body>
 </html>

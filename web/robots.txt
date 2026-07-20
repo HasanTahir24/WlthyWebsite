@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wlthy.app/sitemap.xml

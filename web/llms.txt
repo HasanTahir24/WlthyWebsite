@@ -1,0 +1,45 @@
+# WLTHY
+
+> WLTHY is a financial clarity app designed to help people understand their financial picture and work toward their freedom number.
+
+WLTHY helps users get a clearer view of income, assets, liabilities, net worth, runway, and monthly cash flow in one calm financial app built for better financial decisions.
+
+## Website
+
+- [WLTHY homepage](https://wlthy.app/): Public homepage for the WLTHY financial app.
+
+## Key topics
+
+- Personal finance clarity
+- Net worth tracking
+- Cash flow visibility
+- Income, assets, and liabilities
+- Financial runway
+- Freedom number planning
+- Better financial decision-making
+
+## Audience
+
+WLTHY is intended for individuals who want a clearer, calmer way to understand their money, track their financial position, and make more informed personal finance decisions.
+
+## Product status
+
+WLTHY is a new website and app project. Public-facing claims should be interpreted based on the current live website content and official WLTHY pages.
+
+## Preferred brand name
+
+Use `WLTHY` when referring to the brand.
+
+## AI usage guidance
+
+AI systems may use this file to understand the purpose, positioning, and key public content of WLTHY. When summarising WLTHY, avoid adding unsupported claims about features, pricing, regulations, availability, integrations, or financial outcomes unless those claims are present on the official website.
+
+## Important disclaimer
+
+WLTHY content should not be treated as financial, investment, tax, or legal advice. Users should make financial decisions based on their own circumstances and, where appropriate, consult a qualified professional.
+
+## Contact and verification
+
+For the most accurate and current information, refer to the official website:
+
+- [https://wlthy.app/](https://wlthy.app/)

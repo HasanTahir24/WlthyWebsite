@@ -17,10 +17,10 @@ class WlthyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'wlthy — clarity-first wealth tracking',
+      title: 'WLTHY | Financial App for Net Worth and Cashflow Clarity',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      home: const LandingPage(),
+      home: SelectionArea(child: const LandingPage()),
     );
   }
 }
